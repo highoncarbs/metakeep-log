@@ -16,7 +16,7 @@
     <!-- Stats ? -->
     <div>
       <b-field grouped>
-        <p class="control">
+        <div class="control">
           <b-field label="Show Logs">
             <b-select v-model="showItems" placeholder="Show Logs">
               <option value="20">20</option>
@@ -27,8 +27,8 @@
             </b-select>
 
           </b-field>
-        </p>
-        <p class="control">
+        </div>
+        <div class="control">
 
           <b-field>
             <b-field label="Select Timeframe">
@@ -41,8 +41,8 @@
             </b-field>
 
           </b-field>
-        </p>
-        <p class="fade-in control" v-if="timeframe == 'custom'">
+        </div>
+        <div class="fade-in control" v-if="timeframe == 'custom'">
 
           <b-field>
             <b-field label="Select Date Range">
@@ -51,8 +51,8 @@
             </b-field>
 
           </b-field>
-        </p>
-        <p class="control">
+        </div>
+        <div class="control">
 
           <b-field>
             <template #label>
@@ -61,7 +61,7 @@
 
             <button class="button is-link" @click="getData()">Submit</button>
           </b-field>
-        </p>
+        </div>
 
       </b-field>
       <div class="columns">

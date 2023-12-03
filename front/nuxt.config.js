@@ -1,15 +1,15 @@
 const config = {
-  static_path: process.env.NODE_ENV !== 'production' ? 'http://localhost:8888' : 'https://cdn.jaitexart.org',
-  static_base: process.env.NODE_ENV !== 'production' ? 'http://0.0.0.0:5151/static/uploads/' : 'https://saas-space.ams3.cdn.digitaloceanspaces.com/',
-  apiserver: process.env.NODE_ENV !== 'production' ? '127.0.0.1' : 'p-api.jaitexart.org',
-  apiserver_port: process.env.NODE_ENV !== 'production' ? '5151' : '443',
+  // static_path: process.env.NODE_ENV !== 'production' ? 'http://localhost:8888' : 'https://cdn.jaitexart.org',
+  // static_base: process.env.NODE_ENV !== 'production' ? 'http://0.0.0.0:5151/static/uploads/' : 'https://saas-space.ams3.cdn.digitaloceanspaces.com/',
+  apiserver: process.env.NODE_ENV !== 'production' ? '127.0.0.1' : '51.20.71.63',
+  apiserver_port: process.env.NODE_ENV !== 'production' ? '5151' : '5151',
 }
 
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'pim-front',
+    title: 'Metakeep- Logs',
     htmlAttrs: {
       lang: 'en'
     },
