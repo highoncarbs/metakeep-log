@@ -54,7 +54,8 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     host: config.apiserver,
-    https: process.env.NODE_ENV != 'production' ? false : true,
+    // https: process.env.NODE_ENV != 'production' ? false : true,
+    https:  false ,
     port: config.apiserver_port,
   },
 
