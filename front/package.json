@@ -1,0 +1,31 @@
+{
+  "name": "pim-front",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
+    "animate.css": "^4.1.1",
+    "chart.js": "2.9.4",
+    "core-js": "^3.25.3",
+    "fuse.js": "^6.6.2",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "nuxt": "^2.15.8",
+    "nuxt-buefy": "^0.4.24",
+    "vue": "^2.7.10",
+    "vue-chartjs": "^3.5.1",
+    "vue-draggable": "^2.0.6",
+    "vue-server-renderer": "^2.7.10",
+    "vue-template-compiler": "^2.7.10",
+    "vuedraggable": "^2.24.3"
+  },
+  "devDependencies": {
+    "postcss-custom-properties": "^13.1.5"
+  }
+}
