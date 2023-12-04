@@ -1,15 +1,18 @@
 # Demo Logger
 
-Backend -
-cd /back
-python -m venv ENV
-pip install -r requirements.txt
+Running the API
 
-Frontend
+1. `cd /back`
+2. `python -m venv ENV`
+3. `ENV/Scripts/activate`
+4. `pip install -r requirements.txt`
+5. `python run.py`
 
-cd /front
-npm install
-npm run dev
+Running the Frontend
+
+`cd /front`
+`npm install`
+`npm run dev`
 
 
-Update the config.py in /back for db credentials
+Update the `config.py` in /back for db credentials
