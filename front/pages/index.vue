@@ -15,7 +15,7 @@
 
     <!-- Stats ? -->
     <div>
-      <b-field grouped>
+      <b-field grouped group-multiline>
         <div class="control">
           <b-field label="Show Logs">
             <b-select v-model="showItems" placeholder="Show Logs">
@@ -46,7 +46,7 @@
 
           <b-field>
             <b-field label="Select Date Range">
-              <b-datepicker placeholder="Click to select" range v-model="custom_range"></b-datepicker>
+              <b-datepicker  :mobile-native="false" placeholder="Click to select" range v-model="custom_range"></b-datepicker>
 
             </b-field>
 
@@ -70,7 +70,28 @@
 
             <p class="heading">TOTAL REQUESTS</p>
             <p class="title has-text-weight-semibold">{{ totalItems }}</p>
-            <p class="subtitle is-size-6">in last 1 hr</p>
+            <p class="subtitle is-size-6">
+              <span v-if="timeframe == '24hrs'">
+
+                last 24 hrs
+              </span>
+              <span v-if="timeframe == '7days'">
+
+                last 7 Days
+              </span>
+              <span v-if="timeframe == 'custom'">
+                <span class="has-text-grey is-underlined" v-if="custom_range.length == 0">
+                  selected dates
+                </span>
+                <span class="has-text-grey is-underlined" v-if="custom_range.length != 0">
+                  {{ new Date(custom_range[0]).toLocaleDateString('en-IN',
+                    { 'month': 'long', 'day': 'numeric', 'year': 'numeric' }) }}
+                  -
+                  {{ new Date(custom_range[1]).toLocaleDateString('en-IN',
+                    { 'month': 'long', 'day': 'numeric', 'year': 'numeric' }) }}
+                </span>
+              </span>
+            </p>
           </div>
 
         </div>
@@ -79,7 +100,27 @@
 
             <p class="heading">UNIQUE USERS</p>
             <p class="title has-text-weight-semibold">{{ unqUsers }}</p>
-            <p class="subtitle is-size-6">in last 1 hr</p>
+            <p class="subtitle is-size-6"> <span v-if="timeframe == '24hrs'">
+
+                last 24 hrs
+              </span>
+              <span v-if="timeframe == '7days'">
+
+                last 7 Days
+              </span>
+              <span v-if="timeframe == 'custom'">
+                <span class="has-text-grey is-underlined" v-if="custom_range.length == 0">
+                  selected dates
+                </span>
+                <span class="has-text-grey is-underlined" v-if="custom_range.length != 0">
+                  {{ new Date(custom_range[0]).toLocaleDateString('en-IN',
+                    { 'month': 'long', 'day': 'numeric', 'year': 'numeric' }) }}
+                  -
+                  {{ new Date(custom_range[1]).toLocaleDateString('en-IN',
+                    { 'month': 'long', 'day': 'numeric', 'year': 'numeric' }) }}
+                </span>
+              </span>
+            </p>
           </div>
         </div>
         <div class="column is-4">
@@ -87,7 +128,27 @@
 
             <p class="heading">FAILED REQUESTS</p>
             <p class="title has-text-weight-semibold">{{ failed }}</p>
-            <p class="subtitle is-size-6">in last 1 hr</p>
+            <p class="subtitle is-size-6"> <span v-if="timeframe == '24hrs'">
+
+                last 24 hrs
+              </span>
+              <span v-if="timeframe == '7days'">
+
+                last 7 Days
+              </span>
+              <span v-if="timeframe == 'custom'">
+                <span class="has-text-grey is-underlined" v-if="custom_range.length == 0">
+                  selected dates
+                </span>
+                <span class="has-text-grey is-underlined" v-if="custom_range.length != 0">
+                  {{ new Date(custom_range[0]).toLocaleDateString('en-IN',
+                    { 'month': 'long', 'day': 'numeric', 'year': 'numeric' }) }}
+                  -
+                  {{ new Date(custom_range[1]).toLocaleDateString('en-IN',
+                    { 'month': 'long', 'day': 'numeric', 'year': 'numeric' }) }}
+                </span>
+              </span>
+            </p>
           </div>
         </div>
       </div>
@@ -232,14 +293,14 @@ export default {
     return {
       activeTab: 0,
       activeTab: 0,
-      unqUsers: 20,
-      failed: 20,
+      unqUsers: 0,
+      failed: 0,
       showItems: 20,
       currentPage: 1,
       timeframe: "24hrs",
       custom_range: [],
       loading: true,
-      totalItems: 1,
+      totalItems: 0,
       tableData: [
 
       ],
@@ -378,17 +439,25 @@ export default {
         time: this.timeframe,
         custom_time: this.custom_range,
       }
-      this.$axios.get('/logs/get', { params: params }).then((response) => {
-        this.tableData = response.data.data
-        this.totalItems = response.data.meta['total_calls']
-        this.unqUsers = response.data.meta['uq_users']
-        this.failed = response.data.meta['failed']
-        if (response.data.success) {
-        }
-      }).finally(() => {
+      if (this.timeframe == 'custom' && this.custom_range.length == 0) {
+        this.$buefy.snackbar.open({
+          'message': 'Please enter a valid date range'
+        })
+      }
+      else {
 
-        this.loading = false
-      })
+        this.$axios.get('/logs/get', { params: params }).then((response) => {
+          this.tableData = response.data.data
+          this.totalItems = response.data.meta['total_calls']
+          this.unqUsers = response.data.meta['uq_users']
+          this.failed = response.data.meta['failed']
+          if (response.data.success) {
+          }
+        }).finally(() => {
+
+          this.loading = false
+        })
+      }
     }
   }
 }
