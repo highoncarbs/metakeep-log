@@ -341,22 +341,22 @@ export default {
 
         let graph_labels = {}
         this.tableData.filter((row) => {
-          graph_labels[moment(row.timestamp).format('DD/MM/YYYY HH:mm') + '-' + row.user_id] = 0
+          graph_labels[moment(row.timestamp).format('DD/MM/YYYY HH:mm')] = []
         })
         this.tableData.filter((row) => {
           Object.keys(graph_labels).forEach((gr) => {
-            if (gr == moment(row.timestamp).format('DD/MM/YYYY HH:mm') + '-' + row.user_id) {
-              graph_labels[gr] = graph_labels[gr] + 1
+            if (gr == moment(row.timestamp).format('DD/MM/YYYY HH:mm') ) {
+              graph_labels[gr].push(row.user_id) 
             }
           })
         })
         return {
           // date_labels = 
-          labels: Object.keys(graph_labels).map(x => x.split('-')[0]),
+          labels: Object.keys(graph_labels),
           datasets: [
             {
               label: 'Users',
-              data: Object.values(graph_labels),
+              data: Object.values(graph_labels).map( x => [...new Set(x)].length),
               backgroundColor: 'rgba(20, 255, 0, 0.3)',
               borderColor: 'rgba(100, 255, 0, 1)',
               borderWidth: 2,
